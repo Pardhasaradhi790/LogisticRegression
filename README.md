@@ -1,114 +1,25 @@
-┌────────────────────────────────────────┐
-│              Data Sources              │
-├────────────────────────────────────────┤
-│ • Claims CSV                           │
-│ • Reporting Table CSV                  │
-│ • Rework Status Logs                   │
-└───────────────────────┬────────────────┘
-                        │
-                        ▼
-┌────────────────────────────────────────┐
-│          Data Ingestion Layer           │
-├────────────────────────────────────────┤
-│ • Pandas CSV Readers                   │
-│ • Schema Validation                    │
-│ • Data Quality Checks                  │
-│ • Define Success Metrics (MAE, R²)     │
-└───────────────────────┬────────────────┘
-                        │
-                        ▼
-┌────────────────────────────────────────┐
-│     Data Processing & Cleaning Layer   │
-├────────────────────────────────────────┤
-│ • Column Normalization                 │
-│ • Missing Value Handling               │
-│ • String Standardization               │
-│ • Datetime Conversion                  │
-│ • Outlier Detection                    │
-└───────────────────────┬────────────────┘
-                        │
-                        ▼
-┌────────────────────────────────────────┐
-│        Feature Engineering Layer       │
-├────────────────────────────────────────┤
-│ • TAT Duration Calculation (Target y)  │
-│ • ClaimID-Based Merge                  │
-│ • Request-Level Aggregation            │
-│ • Status Count Pivoting                │
-│ • Rework Frequency Features            │
-│ • Priority Encoding                    │
-└───────────────────────┬────────────────┘
-                        │
-                        ▼
-┌────────────────────────────────────────┐
-│     Feature Transformation Layer       │
-├────────────────────────────────────────┤
-│ • Categorical Encoding                 │
-│ • Numerical Scaling (StandardScaler)   │
-│ • Feature Readiness Validation         │
-└───────────────────────┬────────────────┘
-                        │
-                        ▼
-┌────────────────────────────────────────┐
-│        ML Training Pipeline             │
-├────────────────────────────────────────┤
-│ • Train / Test Split                   │
-│ • Supervised Regression Models         │
-│   - RandomForest                       │
-│   - GradientBoosting                   │
-│   - ExtraTrees                         │
-│   - HistGradientBoost                  │
-│   - XGBoost                            │
-│   - LightGBM                           │
-│   - CatBoost                           │
-│ • Neural Network Baseline (MLP)         │
-└───────────────────────┬────────────────┘
-                        │
-                        ▼
-┌────────────────────────────────────────┐
-│    Hyperparameter Optimization Layer   │
-├────────────────────────────────────────┤
-│ • GridSearchCV                         │
-│ • Cross Validation (CV = 3)            │
-│ • Bias–Variance Tradeoff               │
-│ • Overfitting Prevention               │
-└───────────────────────┬────────────────┘
-                        │
-                        ▼
-┌────────────────────────────────────────┐
-│      Model Evaluation & Selection      │
-├────────────────────────────────────────┤
-│ • MAE – Business Error Tolerance       │
-│ • RMSE – Large Error Penalty           │
-│ • R² – Variance Explained              │
-│ • Best Model Selection (XGBoost)       │
-└───────────────────────┬────────────────┘
-                        │
-                        ▼
-┌────────────────────────────────────────┐
-│       Prediction & Interpretation     │
-├────────────────────────────────────────┤
-│ • Predict TAT in Seconds               │
-│ • Convert to HH:MM:SS                  │
-│ • Attach Predictions to Claims         │
-└───────────────────────┬────────────────┘
-                        │
-                        ▼
-┌────────────────────────────────────────┐
-│      Output & Consumption Layer        │
-├────────────────────────────────────────┤
-│ • CSV Reports                          │
-│ • Performance Charts                  │
-│ • Dashboards / APIs                   │
-│ • SLA & Ops Insights                  │
-└───────────────────────┬────────────────┘
-                        │
-                        ▼
-┌────────────────────────────────────────┐
-│  Monitoring & Continuous Improvement  │
-├────────────────────────────────────────┤
-│ • Data Drift Detection                 │
-│ • Model Performance Monitoring         │
-│ • Periodic Retraining                 │
-│ • Feedback Loop                        │
-└────────────────────────────────────────┘
+```mermaid
+flowchart TD
+    A[Data Sources<br/>• Claims CSV<br/>• Reporting Table CSV<br/>• Rework Status Logs]
+
+    B[Data Ingestion Layer<br/>• Pandas CSV Readers<br/>• Schema Validation<br/>• Data Quality Checks<br/>• Define Success Metrics (MAE, R²)]
+
+    C[Data Processing & Cleaning<br/>• Column Normalization<br/>• Missing Value Handling<br/>• String Standardization<br/>• Datetime Conversion<br/>• Outlier Detection]
+
+    D[Feature Engineering<br/>• TAT Duration Calculation (Target y)<br/>• ClaimID-Based Merge<br/>• Request-Level Aggregation<br/>• Status Count Pivoting<br/>• Rework Frequency Features<br/>• Priority Encoding]
+
+    E[Feature Transformation<br/>• Categorical Encoding<br/>• Numerical Scaling (StandardScaler)<br/>• Feature Readiness Validation]
+
+    F[ML Training Pipeline<br/>• Train/Test Split<br/>• Supervised Regression Models<br/>• RandomForest<br/>• GradientBoosting<br/>• ExtraTrees<br/>• HistGradientBoost<br/>• XGBoost<br/>• LightGBM<br/>• CatBoost<br/>• MLP Baseline]
+
+    G[Hyperparameter Optimization<br/>• GridSearchCV<br/>• Cross Validation (CV=3)<br/>• Bias–Variance Tradeoff<br/>• Overfitting Prevention]
+
+    H[Model Evaluation & Selection<br/>• MAE<br/>• RMSE<br/>• R²<br/>• Best Model Selection (XGBoost)]
+
+    I[Prediction & Interpretation<br/>• Predict TAT (Seconds)<br/>• Convert to HH:MM:SS<br/>• Attach Predictions to Claims]
+
+    J[Output & Consumption<br/>• CSV Reports<br/>• Performance Charts<br/>• Dashboards / APIs<br/>• SLA & Ops Insights]
+
+    K[Monitoring & Continuous Improvement<br/>• Data Drift Detection<br/>• Model Performance Monitoring<br/>• Periodic Retraining<br/>• Feedback Loop]
+
+    A --> B --> C --> D --> E --> F --> G --> H --> I --> J --> K
